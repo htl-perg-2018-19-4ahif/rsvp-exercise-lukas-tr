@@ -1,4 +1,4 @@
-POST http://localhost:1234/party HTTP/1.1
+POST http://localhost:1235/party HTTP/1.1
 Accept: application/json
 Content-Type: application/json
 
@@ -6,28 +6,28 @@ Content-Type: application/json
 
 ###
 
-GET http://localhost:1234/party/1 HTTP/1.1
+GET http://localhost:1235/party/1 HTTP/1.1
 Accept: application/json
 Authorization: Basic YWRtaW46UEBzc3cwcmQh
 
 ###
 
-POST http://localhost:1234/party/1/register HTTP/1.1
+POST http://localhost:1235/party/1/register HTTP/1.1
 Accept: application/json
 Content-Type: application/json
 
 { "firstName": "Foo", "lastName": "Bar" }
 
 ###
-GET http://localhost:1234/party/1/guests HTTP/1.1
+GET http://localhost:1235/party/1/guests HTTP/1.1
 Accept: application/json
 
 ###
-GET http://localhost:1234/party/1/guests HTTP/1.1
+GET http://localhost:1235/party/1/guests HTTP/1.1
 Accept: application/json
 Authorization: Basic admin:admin
 
 ###
-GET http://localhost:1234/party/1/guests HTTP/1.1
+GET http://localhost:1235/party/1/guests HTTP/1.1
 Accept: application/json
 Authorization: Basic YWRtaW46UEBzc3cwcmQh

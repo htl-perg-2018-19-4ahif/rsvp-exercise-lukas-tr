@@ -2,10 +2,27 @@ import * as express from "express";
 import * as loki from "lokijs";
 import * as basic from "express-basic-auth";
 import * as path from "path";
+import * as cors from "cors";
+import { stat } from "fs";
 
 const app = express();
 const port = parseInt(process.argv[2]) || 8080;
 app.use(express.json());
+app.use(cors());
+
+const appPath = path.join(__dirname, "rsvp-app", "build");
+
+console.log(appPath);
+
+stat(appPath, err => {
+  if (err) {
+    console.error(
+      "Built app not available. Build using `cd rsvp-app && npm run build`"
+    );
+    process.exit();
+  }
+  app.use("/", express.static(appPath));
+});
 
 const maxGuests = 10;
 
@@ -60,6 +77,10 @@ app.get("/party/:partyId", (req, res) => {
 
 app.post("/party/:partyId/register", (req, res) => {
   const party = parties.findOne({ id: parseInt(req.params.partyId) });
+
+  if (!party) {
+    return res.status(404).send();
+  }
 
   if (party.guests.length < maxGuests) {
     const guest: IGuest = {
